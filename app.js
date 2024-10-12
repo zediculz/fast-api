@@ -1,16 +1,19 @@
 import Fastify from 'fastify'
 import fs from 'fs'
 
+const port = process.env.PORT || 3000;
+const host = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
+
 const app = Fastify()
 const dataUrl = "./bin/data.json"
 
 //crud
 //read
-app.get("/", (request, reply) => {
+app.get("/api/", (request, reply) => {
     const query = request.query
     const id = parseInt(query.id)
 
-    fs.readFile("./bin/data.json", "utf8", (err, file) => {
+    fs.readFile(dataUrl, "utf8", (err, file) => {
         const datas = JSON.parse(file)
         if (query.id === undefined) {
             reply.send({ data: datas, status: true })
@@ -27,8 +30,9 @@ app.get("/", (request, reply) => {
     }) 
 })
 
+
 //create
-app.post("/", (request, reply) => {
+app.post("/api/", (request, reply) => {
     const { name, age } = request.body
 
     fs.readFile(dataUrl, "utf8", (err, file) => {
@@ -55,8 +59,9 @@ app.post("/", (request, reply) => {
     })
 })
 
+
 //delete
-app.post("/delete/:id", (request, reply) => {
+app.post("/api/delete/:id", (request, reply) => {
     const params = request.params
     const id = parseInt(params?.id)
 
@@ -85,6 +90,7 @@ app.post("/delete/:id", (request, reply) => {
         }
     })
 })
+
 
 //update
 app.post("/update/:id", (request, reply) => {
@@ -115,8 +121,10 @@ app.post("/update/:id", (request, reply) => {
     })
 })
 
+
+
 // Run the server!
-app.listen({ port: 3000, host: "0.0.0.0" }, function (err, address) {
+app.listen({ port: port, host: host }, function (err, address) {
     if (err) {
         server.log.error(err)
         process.exit(1)

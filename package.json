@@ -11,5 +11,8 @@
   "description": "",
   "dependencies": {
     "fastify": "^5.0.0"
+  },
+  "script": {
+    "start": "nodemon app.js"
   }
 }
