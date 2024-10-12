@@ -4,7 +4,10 @@ import fs from 'fs'
 const port = process.env.PORT || 3000;
 const host = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
 
-const app = Fastify()
+const app = Fastify({
+    logger: true
+})
+
 const dataUrl = "./bin/data.json"
 
 //crud
