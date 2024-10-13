@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: fastify-hello-world-example
+    name: live-view-api
     runtime: node
     plan: free
     autoDeploy: false
