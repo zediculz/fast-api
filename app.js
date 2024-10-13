@@ -1,5 +1,6 @@
 import Fastify from 'fastify'
 import fs from 'fs'
+import cors from '@fastify/cors'
 
 const port = process.env.PORT || 3000;
 const host = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
@@ -7,6 +8,10 @@ const host = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
 const app = Fastify({
     logger: true
 })
+
+await app.register(cors, {
+    // put your options here
+}) 
 
 const dataUrl = "./bin/data.json"
 
